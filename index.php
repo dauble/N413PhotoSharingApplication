@@ -41,11 +41,23 @@ switch ($action) {
   case "login":
     $user_controller->login();
     break;
-  case "verify":
-    $user_controller->auth();
+  case "login_confirm":
+    $user_controller->login_confirm();
     break;
-  case "logout":
-    $user_controller->logout();
+  case "logout_confirm":
+    $user_controller->logout_confirm();
+    break;
+  case "profile":
+    $user_controller->profile();
+    break;
+  case "add_gallery":
+    $user_controller->add_gallery();
+    break;
+  case "single_gallery_view":
+    $user_controller->single_gallery_view();
+    break;
+  case "add_image":
+    $user_controller->add_image();
     break;
   case "reset":
     $user_controller->reset();

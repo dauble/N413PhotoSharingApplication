@@ -1,0 +1,33 @@
+.profile__container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.left .left__container {
+    display: flex;
+    justify-content: space-between;
+}
+.left .left__container .left__image {
+    height: 225px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.left .left__container .left__buttons {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.left .left__container .left__buttons button {
+    margin-top: 5%;
+    width: 150px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: #fff;;
+}
+
+.left .left__container .left__buttons button a {
+    font-size: 16px;
+}
+

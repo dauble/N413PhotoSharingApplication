@@ -19,12 +19,7 @@ class UserModel
   function __construct()
   {
     $this->db = Database::getInstance();
-    // $this->conn = $this->db->getSQL();
-  }
-
-  //Logout user
-  function logout()
-  {
+    $this->conn = $this->db->getSQL();
   }
 
   //Delete user
@@ -43,6 +38,7 @@ class UserModel
     // we don't need to do anything here
   }
 
+  //Registers user and shows confirmation page
   function register_confirm()
   {
     //Variables
@@ -72,12 +68,20 @@ class UserModel
 
     //Inserts user input in db
     $result = $this->db->insert_user($sql);
+    
+
+    $user_id = mysqli_insert_id($this->conn);
+    if($user_id) {
+      session_start();
+      $_SESSION["pk_user+id"] = $user_id;
+    }
 
     echo "result: " . $result;
 
     return $result;
   }
 
+  //Returns the last username added to the db
   function get_last_username()
   {
     $sql = "SELECT * FROM final_users ORDER BY pk_user_id DESC LIMIT 1";
@@ -92,31 +96,96 @@ class UserModel
     return $result;
   }
 
+ 
+
   //Login user
   function login()
+  {
+    //Need anything ?
+  }
+
+  //Login Confirmation
+  function login_confirm()
   {
     //Retrieves user and pass from db
     $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
     $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
 
     //Selects user data from the final_users table
-    $sql = "SELECT password FROM " . $this->db->getUserTable() . "WHERE username='$username'";
+    $sql = "SELECT * FROM " . $this->db->getUserTable() . "WHERE username='$username'";
 
     //Runs the sql statement
     $result = $this->conn->query($sql);
+    $row = $result->fetch_assoc();
+
+    if(password_verify($password, $row["password"])){
+      session_start();
+      $_SESSION["pk_user_id"] = $row["id"];
+  } 
+  
 
     //$results = array();
 
     //If password is there, start a session with user id
-    if ($result and $result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-      $hash = $row['password'];
-      if (password_verify($password, $hash)) {
-        session_start();
-        $_SESSION["pk_user_id"] = $row["id"];
-        return true;
-      }
-      return false;
-    }
+    // if ($result and $result->num_rows > 0) {
+    //   $row = $result->fetch_assoc();
+    //   $hash = $row['password'];
+
+    //   if (password_verify($password, $hash)) {
+    //     session_start();
+    //     $_SESSION["pk_user_id"] = $row["id"];
+    //     return true;
+    //   }
+    //   return false;
+    // }
   }
+
+    //Logout user and show confirmation page
+    function logout_confirm() {
+    session_start();
+    unset($_SESSION);
+    session_destroy();
+    }
+
+    //Adds an image to a gallery
+    function add_image() {
+
+    }
+
+    function add_gallery() {
+//May not need?
+    }
+
+     //Adds gallery
+     function single_gallery_view() {
+      
+    //Variables
+    $galleryName = '';
+    $tagName = '?';
+   
+
+    //Retrieves and sanitizes user input
+    $galleryName = trim(filter_input(INPUT_POST, "galleryName", FILTER_SANITIZE_STRING));
+    $tagName = trim(filter_input(INPUT_POST, 'tagName', FILTER_SANITIZE_STRING));
+
+    // displays information
+    echo "Gallery Name:" . $galleryName . "<br>";
+    echo "Tag Name:" . $tagName . "<br>";
+
+    $sql = "INSERT INTO " . $this->db->getGalleryTable() . " (pk_gallery_id, fk_user_id, gallery_name, tag_name) VALUES ('Null','1','$galleryName', '$tagName')";
+    echo "SQL:" . $sql . "<br>";
+    echo "<hr>";
+
+    //Inserts user input--the gallery-- in db
+    $result = $this->db->insert_gallery($sql);
+
+    echo "result: " . $result;
+
+    return $result;
+    }
+
+     //Adds an image to a gallery
+     function profile() {
+      //May not need
+    }
 }

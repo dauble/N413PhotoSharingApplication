@@ -27,6 +27,8 @@ class MainView
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
       <!--Font Awesome -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      
+      <link rel="stylesheet" href="dist/css/profile.css" type="text/css"/>
 
 
 
@@ -92,8 +94,8 @@ class MainView
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="index.php?action=login">Login</a></li>
                 <li><a class="dropdown-item" href="index.php?action=register">Register</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="index.php?action=logout_confirm">Logout</a></li>
+                <li><a class="dropdown-item" href="index.php?action=profile">Profile</a></li>
               </ul>
             </li>
           </ul>

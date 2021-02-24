@@ -14,9 +14,10 @@ class Database
   private $param = array(
     'hostname' => 'localhost',
     'user' => 'root',
-    'password' => 'root',
+    'password' => '',
     'database' => 'photo_share',
-    'userTbl' => 'final_users'
+    'userTbl' => 'final_users',
+    'galleryTbl' => 'final_gallery'
   );
 
   //Database connection & instance
@@ -59,14 +60,28 @@ class Database
     return $this->param['userTbl'];
   }
 
+  //Inserts user into DB
   function insert_user($sql)
   {
 
     if (!mysqli_query($this->conn, $sql)) {
       return "Error: " . $sql . "<br>" . mysqli_error($this->conn);
     }
+  }
 
-    return "this is from the database";
+  //returns the gallery table
+  function getGalleryTable()
+  {
+    return $this->param['galleryTbl'];
+  }
+
+  //Inserts gallery into DB
+  function insert_gallery($sql)
+  {
+
+    if (!mysqli_query($this->conn, $sql)) {
+      return "Error: " . $sql . "<br>" . mysqli_error($this->conn);
+    }
   }
 
   function get_last_username($sql)

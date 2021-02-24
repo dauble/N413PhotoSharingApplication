@@ -11,7 +11,7 @@ class Login extends MainView {
     function show() {
         parent::header();
     ?>
-    <form method="POST" action="index.php?action=auth">
+    <form method="POST" action="index.php?action=login_confirm">
     <div class="row mt-5">
         <div class="col-4"></div>
         <div id="form-container" class="col-4">
